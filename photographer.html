@@ -22,15 +22,17 @@
     </header>
     <main id="photographer-main">
       <article class="photograph-header"></article>
+      <h1 class="filter-list" id="addSelect">
+        Trié par 
+        <select id="sortMedias">
+          <option value="default">--Choisir un tri--</option>
+          <option value="populaire">Popularité</option>
+          <option value="date">Date</option>
+          <option value="titre">Titre</option>
+        </select>
+      </h1> 
       <article class="photograph-media">
-        <h1 class="filter-list">
-          Trié par
-          <select id="sortMedias">
-            <option value="popularite">Popularité</option>
-            <option value="date">Date</option>
-            <option value="titre">Titre</option>
-          </select>
-        </h1>
+        <h2>Faites un tri pour afficher les photos</h2>
       </article>
     </main>
     <main id="carrousel" aria-hidden="true">

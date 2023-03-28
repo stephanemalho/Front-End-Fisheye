@@ -14,6 +14,7 @@ async function getPhotographerData() {
   const media = dataMedia.media.filter((media) => media.photographerId == id);
   console.log(media);
 
+
   function getLikes(photographerId) {
     let likes = 0;
     dataMedia.media.forEach((media) => {
@@ -54,6 +55,34 @@ async function getPhotographerData() {
 
   // Créer la liste des photos du photographe en créeant un élément html div
   const mediaList = document.querySelector(".photograph-media");
+
+  // Ajouter la select box pour trier les médias
+  const sortSelect = document.getElementById("sortMedias")
+  // placer sortSelect dans le h1 de la page
+  sortSelect.setAttribute("aria-label", "Trier les médias");
+  
+  // Ajouter l'écouteur d'événement pour trier les médias en fonction de la valeur de la select box
+  sortSelect.addEventListener("change", (e) => {
+    const value = e.target.value;
+    switch (value) {
+      case "populaire":
+        mediaList.innerHTML = "";
+        media.sort((a, b) => b.likes - a.likes);
+        break;
+      case "date":
+        mediaList.innerHTML = "";
+        media.sort((a, b) => new Date(b.date) - new Date(a.date));
+        break;
+      case "titre":
+        mediaList.innerHTML = "";
+        media.sort((a, b) => a.title.localeCompare(b.title));
+        break;
+      default:
+        mediaList.appendChild(mediaCard);
+        break;
+    }
+    
+    // Supprimer tous les médias de la page
 
   media.forEach((photographer) => {
     let mediaElement;
@@ -118,7 +147,6 @@ async function getPhotographerData() {
         }
       });
     });
-
     // Ajouter la carte du média à la liste des médias
     mediaList.appendChild(mediaCard);
 
@@ -198,6 +226,7 @@ async function getPhotographerData() {
       }
     });
   });
+  });
 
   const namedForm = document.querySelector(".contact_header");
   namedForm.innerHTML = `
@@ -205,7 +234,9 @@ async function getPhotographerData() {
   <button aria-label="fermer le formulaire" id="close" onclick="closeModal()">X</button>
   <h3>${photographer[0].name}</h3>
   `;
+
 }
+
 
 getPhotographerData();
 
