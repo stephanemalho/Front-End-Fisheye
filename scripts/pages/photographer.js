@@ -89,7 +89,7 @@ async function getPhotographerData() {
     </div>
     `;
     mediaCard.appendChild(mediaElement);
-
+    
     // Ajouter un like au click sur le bouton avec la classe likes et ne pas jouer l'ébènement click sur la carte du média
     const likeButton = mediaCard.querySelector(".likes");
     likeButton.addEventListener("click", (e) => {
@@ -100,22 +100,20 @@ async function getPhotographerData() {
         return;
       }
       likeButton.classList.add("liked");
-
-      console.log(photographer.id);
-      console.log(photographer.likes);
+      
       // ajouter un like au média dans le tableau media et dans le fichier json media.json
       media.forEach((media) => {
         if (media.id == photographer.id) {
           likeButton.innerHTML = `
           <p>${media.likes}</p>
-          <i class="fas fa-heart"></i>
+          <i class="fas fa-heart red"></i>
           `;
 
           console.log(media.likes);
           const likes = document.querySelector(".banner span");
           likes.innerHTML = `
           ${getLikes(id)}
-          <i class="fas fa-heart" aria-label=" fois liké">  </i>
+          <i class="fas fa-heart" aria-label=" nombres de likes">  </i>
           `;
         }
       });
@@ -240,3 +238,6 @@ function closeSliderModal(event) {
   const photograph = document.querySelector("#photographer-main");
   photograph.style.display = "block";
 }
+
+
+

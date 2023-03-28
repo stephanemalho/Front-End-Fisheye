@@ -372,12 +372,15 @@ form textarea {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    color: #901C1C;
     align-items: center;
     width: 70px;
     text-align: center;
     border: none;
     background-color: transparent;
+}
+
+.red {
+    color: #901C1C;
 }
 
 .likes:hover {
