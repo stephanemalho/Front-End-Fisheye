@@ -201,7 +201,6 @@ button:focus {
     width: 100%;
     height: 80%;
     object-fit: cover;
-    border-radius: 5px;
     position: absolute;
     top: 0;
 }
@@ -274,3 +273,98 @@ form textarea {
 .banner i {
     padding: 0 5px 0 5px;
 }
+
+
+
+
+#carrousel {
+    display: none;
+    height: 700px;
+    width: 800px;
+    position: relative;
+    margin: auto;
+    border: 1px solid black;
+}
+.carrousel-media {
+    width: 720px;
+    height: 670px;
+    display: flex;
+    overflow: hidden;
+    flex-direction: row;
+    margin: 30px auto;
+    scroll-behavior: smooth;
+    background-color: white;
+}
+
+.carrousel-media-icon  {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 5rem;
+    color: #901C1C;
+    width: 100%;
+    z-index: 1; 
+    height: 80vh; 
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center; 
+}
+/* #carrousel .img {
+    display: flex;
+    flex-direction: row;
+    height: auto;
+    min-width: 600px;
+    overflow: hidden;
+} */
+
+.images {
+    flex-direction: column;
+    object-fit: cover;
+    position: relative;
+    width: 720px;
+    height: 630px;
+}
+.imageContainer {
+    height: 615px;
+    width: 720px;
+    padding-top: 20px;
+}
+.mediaElement {
+    width: 720px;
+    object-fit: cover;
+    box-sizing: border-box;
+    height: 610px;
+    position: relative;
+}
+
+.left, .right {
+    font-size: 5rem;
+    color: #901C1C;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+}
+
+.mediaTitle {
+    position: absolute;
+    bottom: -45px;
+    left: 20px;
+    color: #901C1C;
+    font-size: 2rem;
+}
+
+.close-button {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    background-color: transparent;
+    color: #901C1C;
+    border: none;
+    font-size: 4rem;
+}
+
+#photographer-main {
+    display: block;
+} 
+

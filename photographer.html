@@ -20,7 +20,7 @@
           aria-label="Cette image contient le nom fisheye, cliquer dessus pour revenir à la page d'accueil"
       /></a>
     </header>
-    <main id="main">
+    <main id="photographer-main">
       <article class="photograph-header"></article>
       <article class="photograph-media">
         <h1 class="filter-list">
@@ -32,6 +32,17 @@
           </select>
         </h1>
       </article>
+    </main>
+    <main id="carrousel" aria-hidden="true">
+      <button onclick="closeSliderModal()" class="close-button" aria-label="fermer le groupe images">X</button>
+        <div class="carrousel-media">
+
+            <!-- add images here-->       
+        </div>
+        <div class="carrousel-media-icon">
+              <button onclick="previousImg()" aria-label="Cliquer pour défiler vers la gauche" class="left"><i  class="fas fa-chevron-left" ></i></button>
+              <button onclick="nextImg()" aria-label="Cliquer pour défiler vers la droite" class="right"><i class="fas fa-chevron-right"></i></button>
+        </div>
     </main>
     <div id="contact_modal">
       <div class="modal" id="modal" tabindex="0" role="dialog" aria-hidden="true">
