@@ -203,6 +203,7 @@ button:focus {
     object-fit: cover;
     position: absolute;
     top: 0;
+    z-index: 1;
 }
 
 .descriptionBox {
