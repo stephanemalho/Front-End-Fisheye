@@ -62,13 +62,16 @@ async function getPhotographerData() {
 
   // Ajouter la select box pour trier les médias
   const sortSelect = document.getElementById("sortMedias");
+
   // placer sortSelect dans le h1 de la page
   sortSelect.setAttribute("aria-label", "Trier les médias");
 
   // Ajouter l'écouteur d'événement pour trier les médias en fonction de la valeur de la select box
   sortSelect.addEventListener("change", (e) => {
     const value = e.target.value;
+    
     switch (value) {
+      
       case "populaire":
         mediaList.innerHTML = "";
         media.sort((a, b) => b.likes - a.likes);
@@ -111,13 +114,13 @@ async function getPhotographerData() {
       mediaCard.addEventListener("click", () => {
           
         const cards = document.querySelectorAll('.cards');
-        cards.forEach((card, index) => {
-          if (card.id == photographer.id) {
-            console.log(index);
-            displaySlider();
-          }
-        });
+        cards.findIndex((card) => card.id == photographer.id);
+        // run displaySlider function with the id of the card clicked
+
+        displaySlider(cards.id = photographer.id, media);
+
       });
+
       mediaCard.addEventListener("keyup", (e) => {
         if (e.key === "Enter") {
           // si le bouton like est focus on ne lance pas la fonction displaySlider
@@ -138,17 +141,16 @@ async function getPhotographerData() {
     `;
       mediaCard.appendChild(mediaElement);
 
-      // Ajouter un like au click sur le bouton avec la classe likes et ne pas jouer l'ébènement click sur la carte du média
       const likeButton = mediaCard.querySelector(".likes");
       likeButton.addEventListener("click", (e) => {
         e.stopPropagation();
-        photographer.likes++;
-        // si le like à déja été cliquer on ne l'ajoute pas
         if (likeButton.classList.contains("liked")) {
-          return;
+          likeButton.classList.remove("liked");
+          photographer.likes--;
+        } else {
+          likeButton.classList.add("liked");
+          photographer.likes++;
         }
-
-        likeButton.classList.add("liked");
 
         // ajouter un like au média dans le tableau media et dans le fichier json media.json
         media.forEach((media) => {
@@ -170,7 +172,6 @@ async function getPhotographerData() {
 
       // Ajouter la carte du média à la liste des médias
       mediaList.appendChild(mediaCard);
-      
       
       const carrousel = document.querySelector(".carrousel-media");
       carrousel.innerHTML = "";
@@ -267,7 +268,6 @@ async function getPhotographerData() {
 
 getPhotographerData();
 
-//au click sur le slider
 function previousImg() {
   console.log("previous");
   const slider = (document.querySelector("#carrousel").width = 720);
