@@ -16,8 +16,6 @@ async function getPhotographerData() {
   const media = dataMedia.media.filter((media) => media.photographerId == id);
   console.log(media);
   // stocker dans une variable tout les médias du photographe pour les trier
-  
-
 
   function getLikes(photographerId) {
     let likes = 0;
@@ -59,19 +57,16 @@ async function getPhotographerData() {
 
   //médias container
   const mediaList = document.querySelector(".photograph-media");
-
-  // Ajouter la select box pour trier les médias
   const sortSelect = document.getElementById("sortMedias");
-
-  // placer sortSelect dans le h1 de la page
   sortSelect.setAttribute("aria-label", "Trier les médias");
+
+  console.log(media);
 
   // Ajouter l'écouteur d'événement pour trier les médias en fonction de la valeur de la select box
   sortSelect.addEventListener("change", (e) => {
     const value = e.target.value;
-    
+
     switch (value) {
-      
       case "populaire":
         mediaList.innerHTML = "";
         media.sort((a, b) => b.likes - a.likes);
@@ -86,6 +81,7 @@ async function getPhotographerData() {
         break;
       default:
         mediaList.innerHTML = "";
+        media.sort((a, b) => b.likes - a.likes);
         break;
     }
 
@@ -112,14 +108,15 @@ async function getPhotographerData() {
       const mediaCard = document.createElement("div");
       mediaCard.classList.add("cards");
       mediaCard.addEventListener("click", () => {
-          
-        const cards = document.querySelectorAll('.cards');
-        cards.findIndex((card) => card.id == photographer.id);
+        const cards = document.querySelectorAll(".cards");
+
         // run displaySlider function with the id of the card clicked
 
-        displaySlider(cards.id = photographer.id, media);
-
+        displaySlider(mediaCard.id);
       });
+
+      // Ajouter la carte du média à la liste des médias
+      mediaList.appendChild(mediaCard);
 
       mediaCard.addEventListener("keyup", (e) => {
         if (e.key === "Enter") {
@@ -134,11 +131,11 @@ async function getPhotographerData() {
       mediaCard.id = photographer.id;
       mediaCard.setAttribute("tabindex", "0");
       mediaCard.innerHTML = `
-    <div class="descriptionBox">
-    <h2>${photographer.title}</h2>
-    <button class="likes"><p>${photographer.likes}</p><i class="fas fa-heart"></i></button>
-    </div>
-    `;
+        <div class="descriptionBox">
+        <h2>${photographer.title}</h2>
+        <button class="likes"><p>${photographer.likes}</p><i class="fas fa-heart"></i></button>
+        </div>
+        `;
       mediaCard.appendChild(mediaElement);
 
       const likeButton = mediaCard.querySelector(".likes");
@@ -170,9 +167,6 @@ async function getPhotographerData() {
         });
       });
 
-      // Ajouter la carte du média à la liste des médias
-      mediaList.appendChild(mediaCard);
-      
       const carrousel = document.querySelector(".carrousel-media");
       carrousel.innerHTML = "";
       media.forEach((media) => {
@@ -211,14 +205,15 @@ async function getPhotographerData() {
         mediaTitle.classList.add("mediaTitle");
         mediaCard.appendChild(mediaTitle);
       });
-    
+
       // au click sur entrer ouvrir le carrousel
       document.getElementById(mediaCard.id).addEventListener("keyup", (e) => {
         if (e.key === "Enter") {
           // afficher le tableau de média
           const carrousel = document.querySelector(".carrousel-media");
           carrousel.innerHTML = "";
-          // si il existe la class liked on return pour la pas jouer displaySlider
+
+          //si il existe la class liked on return pour la pas jouer displaySlider
           media.forEach((media) => {
             let mediaElement;
             if (media.hasOwnProperty("video")) {
@@ -280,15 +275,13 @@ function nextImg() {
   document.querySelector(".carrousel-media").scrollLeft += slider;
 }
 
-
-function displaySlider()  {
+function displaySlider() {
   const container = document.querySelector("#carrousel");
   container.style.display = "block";
   container.setAttribute("aria-hidden", "false");
   const photograph = document.querySelector("#photographer-main");
   photograph.style.display = "none";
 }
-
 
 function closeSliderModal() {
   const container = document.querySelector("#carrousel");
