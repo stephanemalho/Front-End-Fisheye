@@ -174,7 +174,7 @@ button:focus {
     background-color: #d3573c;
 }
 
-.photograph-media {
+.photograph-medias {
     display: flex;
     flex-wrap: wrap;
     margin: 100px auto;
@@ -287,11 +287,10 @@ form textarea {
 }
 .carrousel-media {
     width: 720px;
-    height: 670px;
     display: flex;
     overflow: hidden;
     flex-direction: row;
-    margin: 30px auto;
+    margin: 50px auto;
     scroll-behavior: smooth;
     background-color: white;
 }
@@ -357,7 +356,7 @@ form textarea {
 .close-button {
     position: absolute;
     top: 5px;
-    right: 10px;
+    right: 2px;
     background-color: transparent;
     color: #901C1C;
     border: none;

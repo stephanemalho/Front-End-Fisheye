@@ -17,43 +17,43 @@ async function getPhotographerData() {
   console.log(media);
   // stocker dans une variable tout les médias du photographe pour les trier
 
-  function getLikes(photographerId) {
-    let likes = 0;
-    dataMedia.media.forEach((media) => {
-      if (media.photographerId == photographerId) {
-        likes += media.likes;
-      }
-    });
-    return likes;
-  }
+  // function getLikes(photographerId) {
+  //   let likes = 0;
+  //   dataMedia.media.forEach((media) => {
+  //     if (media.photographerId == photographerId) {
+  //       likes += media.likes;
+  //     }
+  //   });
+  //   return likes;
+  // }
 
-  const photographerCard = document.querySelector(".photograph-header");
-  photographerCard.innerHTML = `
-  <figure>
-    <figcaption tabindex=${photographer[0].tabindex}>
-      <img src="assets/photographers/${
-        photographer[0].portrait
-      }" alt="portrait de ${photographer[0].name} aria-label="profil de  ${
-    photographer[0].name
-  }" " >
-    </figcaption>
-    <button class="contact_button" onclick="displayModal()" tabindex=${
-      photographer[0].tabindex
-    } >Contactez-moi</button>
-    <div class="photograph-info">
-      <h1 tabindex=${photographer[0].tabindex + 1}>${photographer[0].name}</h1>
-      <div tabindex=${photographer[0].tabindex + 1}> 
-      <h2>${photographer[0].city}, ${photographer[0].country}</h2>
-      <p>${photographer[0].tagline}</p>
-      </div>
-    </div>
-    </figure>
-    <p class="banner" tabindex="0"><span>${getLikes(
-      id
-    )}<i class="fas fa-heart" aria-label=" fois liké">  </i></span> ${
-    photographer[0].price
-  }€/jour</p>
-  `;
+  // const photographerCard = document.querySelector(".photograph-header");
+  // photographerCard.innerHTML = `
+  // <figure>
+  //   <figcaption tabindex=${photographer[0].tabindex}>
+  //     <img src="assets/photographers/${
+  //       photographer[0].portrait
+  //     }" alt="portrait de ${photographer[0].name} aria-label="profil de  ${
+  //   photographer[0].name
+  // }" " >
+  //   </figcaption>
+  //   <button class="contact_button" onclick="displayModal()" tabindex=${
+  //     photographer[0].tabindex
+  //   } >Contactez-moi</button>
+  //   <div class="photograph-info">
+  //     <h1 tabindex=${photographer[0].tabindex + 1}>${photographer[0].name}</h1>
+  //     <div tabindex=${photographer[0].tabindex + 1}> 
+  //     <h2>${photographer[0].city}, ${photographer[0].country}</h2>
+  //     <p>${photographer[0].tagline}</p>
+  //     </div>
+  //   </div>
+  //   </figure>
+  //   <p class="banner" tabindex="0"><span>${getLikes(
+  //     id
+  //   )}<i class="fas fa-heart" aria-label=" fois liké">  </i></span> ${
+  //   photographer[0].price
+  // }€/jour</p>
+  // `;
 
   //médias container
   const mediaList = document.querySelector(".photograph-media");
@@ -281,6 +281,8 @@ function displaySlider() {
   container.setAttribute("aria-hidden", "false");
   const photograph = document.querySelector("#photographer-main");
   photograph.style.display = "none";
+
+  
 }
 
 function closeSliderModal() {
