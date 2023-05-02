@@ -252,13 +252,6 @@ async function getPhotographerData() {
       });
     });
   });
-
-  const namedForm = document.querySelector(".contact_header");
-  namedForm.innerHTML = `
-  <h2>Contacter:</h2>
-  <button aria-label="fermer le formulaire" id="close" onclick="closeModal()">X</button>
-  <h3>${photographer[0].name}</h3>
-  `;
 }
 
 getPhotographerData();

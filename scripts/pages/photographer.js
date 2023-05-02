@@ -3,17 +3,22 @@ let currentPhotographerMedias = [];
 async function getPhotographerData() {
   const url = new URL(window.location.href);
   const id = url.searchParams.get("id");
+
   const response = await fetch("../data/photographers.json");
   const data = await response.json();
   const photographer = data.photographers.filter(
     (photographer) => photographer.id == id
   );
+
   const responseMedia = await fetch("../data/photographers.json");
   const dataMedia = await responseMedia.json();
   const medias = dataMedia.media.filter((media) => media.photographerId == id);
+
   currentPhotographerMedias = [...medias];
+
   showPhotographerHeader(photographer[0]);
   showPhotographerMedias(medias);
+  getUserNameToForm(photographer[0]);
 }
 
 function showPhotographerHeader(photographerProfile) {
@@ -43,6 +48,15 @@ function showPhotographerHeader(photographerProfile) {
   <p class="banner" tabindex="0"><span><i class="fas fa-heart" aria-label=" fois liké"></i>${getLikes(
     photographerProfile.id
   )}</span>${photographerProfile.price}€/jour</p>
+  `;
+}
+
+function getUserNameToForm(photographer) {
+  const namedForm = document.querySelector(".contact_header");
+  namedForm.innerHTML = `
+  <h2>Contacter:</h2>
+  <button aria-label="fermer le formulaire" id="close" onclick="closeModal()">X</button>
+  <h3>${photographer.name}</h3>
   `;
 }
 
@@ -102,3 +116,4 @@ function closeSlider() {
 }
 
 getPhotographerData();
+
