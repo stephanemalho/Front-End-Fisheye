@@ -75,7 +75,7 @@ function hiddeBanner() {
     banner.style.display = "none";
   } else {
     const banner = document.querySelector(".banner");
-    banner.style.display = "block";
+    banner.style.display = "flex";
   }
 }
 
@@ -93,7 +93,7 @@ form.addEventListener("submit", (e) => {
       message: document.querySelector("#message").value,
     };
     console.log(userObject);
-    closeModal();
+    closeModal();  
   } catch (error) {
     console.log(error);
   }

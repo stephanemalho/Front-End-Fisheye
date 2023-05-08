@@ -48,7 +48,7 @@ function showPhotographerHeader(photographerProfile) {
   </figure>
   <p class="banner" tabindex="0"><span><i class="fas fa-heart" aria-label=" fois liké"></i>${getLikes(
     photographerProfile.id
-  )}</span>${photographerProfile.price}€/jour</p>
+  )}</span><span>${photographerProfile.price}€/jour</span></p>
   `;
 }
 
@@ -67,19 +67,19 @@ function showPhotographerMedias(profileMedias) {
     {
       profileMedia.image
         ? (mediaContainerHTML += `
-      <div id=${profileMedia.id} class="cards" tabindex="0" onclick="displayLightbox(${index})">
+      <div id=${profileMedia.id} class="cards" tabindex="0" onclick="displayLightbox(${index})" onkeydown="handleCardKeyDown(${index}, event)" >
       <div class="descriptionBox">
       <h2>${profileMedia.title}</h2>
-      <button class="likes" onclick="handleLike(event)"><p>${profileMedia.likes}</p><i class="fas fa-heart" aria-hidden="true"></i></button>
+      <button class="likes" onclick="handleLike(event)" onkeydown="handleLikeEnter(event)"><p>${profileMedia.likes}</p><i class="fas fa-heart" aria-hidden="true"></i></button>
       </div>
       <img src="assets/photos/${profileMedia.image}" alt="${profileMedia.title}"></div>
       `)
         : profileMedia.video
         ? (mediaContainerHTML += `
-      <div id=${profileMedia.id} class="cards" tabindex="0" onclick="displayLightbox(${index})">
+      <div id=${profileMedia.id} class="cards" tabindex="0" onclick="displayLightbox(${index})" onkeydown="handleCardKeyDown(${index}, event)">
       <div class="descriptionBox">
       <h2>${profileMedia.title}</h2>
-      <button class="likes" onclick="handleLike(event)"><p>${profileMedia.likes}</p><i class="fas fa-heart" aria-hidden="true"></i></button>
+      <button class="likes" onclick="handleLike(event)" onkeydown="handleLikeEnter(event)"><p>${profileMedia.likes}</p><i class="fas fa-heart" aria-hidden="true"></i></button>
       </div>
       <video src="assets/videos/${profileMedia.video}" alt="${profileMedia.title}" controls="true"></video></div>
       `)
@@ -90,6 +90,19 @@ function showPhotographerMedias(profileMedias) {
   mediaContainer.innerHTML = mediaContainerHTML;
 }
 
+function handleCardKeyDown(index, event) {
+  console.log("event "+ event.key);
+  if (event.key === "Enter") {
+    displaySlider(parseInt(index), currentPhotographerMedias);
+  }
+}
+
+function handleLikeEnter(event) {
+  event.stopPropagation();
+  if (event.key === "Enter") {
+    console.log("enter" + event.key);
+    }
+}
 
 function handleLike(event) {
   event.stopPropagation();
@@ -100,7 +113,7 @@ function handleLike(event) {
   const likesNumber = parseInt(like.textContent);
 
   const media = currentPhotographerMedias;
-
+  
   media.forEach((media) => {
     if (media.id == mediaId) {
       console.log(media.id);
@@ -108,25 +121,29 @@ function handleLike(event) {
       if (like.classList.contains("liked")) {
         likeButton.setAttribute("aria-label", "annuler le like");
         like.classList.remove("liked");
-        { media.likes = likesNumber - 1;}
+        {
+          media.likes = likesNumber - 1;
+        }
         likeButton.innerHTML = `
         <p>${likesNumber - 1}</p>
         <i class="fas fa-heart "></i>
         `;
       } else {
         likeButton.setAttribute("aria-label", "ajouter un like");
-        { media.likes = likesNumber + 1;}
+        {
+          media.likes = likesNumber + 1;
+        }
         likeButton.innerHTML = `
         <p class="liked">${likesNumber + 1}</p>
         <i class="fas fa-heart red"></i>
         `;
-        }
+      }
 
       console.log("likes " + media.likes);
       const likes = document.querySelector(".banner span");
       likes.innerHTML = `
       <i class="fas fa-heart" aria-label=" nombres de likes"></i>
-      ${getLikes(media.photographerId)}
+      <span>${getLikes(media.photographerId)}</span>
           `;
     }
   });
@@ -156,19 +173,29 @@ function displaySlider(mediaIndex, medias) {
   container.setAttribute("aria-hidden", "false");
   const photograph = document.querySelector("#photographer-main");
   photograph.style.display = "none";
+
+  let currentIndex = mediaIndex;
   {
-    medias[mediaIndex].image
+    medias[currentIndex].image
       ? (document.querySelector(".carrousel-media").innerHTML = `
     <div class="media" >
-    <img src="assets/photos/${medias[mediaIndex].image}" alt="${medias[mediaIndex].title}" class="mediaElement" aria-label="image de ${medias[mediaIndex].title}">
+    <img src="assets/photos/${medias[currentIndex].image}" alt="${medias[currentIndex].title}" class="mediaElement" aria-label="image de ${medias[currentIndex].title}">
+    <p class="mediaTitle">${medias[currentIndex].title}</p>
     </div>
     `)
       : (document.querySelector(".carrousel-media").innerHTML = `
     <div class="media" >
-    <video src="assets/videos/${medias[mediaIndex].video}" alt="${medias[mediaIndex].title}" class="mediaElement" aria-label="video de ${medias[mediaIndex].title}" controls="true"></video>
+    <video src="assets/videos/${medias[currentIndex].video}" alt="${medias[currentIndex].title}" class="mediaElement" aria-label="video de ${medias[currentIndex].title}" controls="true"></video>
+    <p class="mediaTitle">${medias[currentIndex].title}</p>
     </div>
     `);
   }
+
+  const previousButton = document.querySelector(".left");
+  const nextButton = document.querySelector(".right");
+
+  previousButton.addEventListener("click", previousImg);
+  nextButton.addEventListener("click", nextImg);
 }
 
 function closeSlider() {
@@ -179,7 +206,6 @@ function closeSlider() {
   photograph.style.display = "block";
 }
 
-// function sortMedia on click on select box
 function sortMedia() {
   const mediaList = document.querySelector(".photograph-medias");
   const sortSelect = document.getElementById("sortMedias");
@@ -207,6 +233,26 @@ function sortMedia() {
     }
     showPhotographerMedias(media);
   });
+}
+
+function previousImg() {
+  if (sliderIndex > 0) {
+    sliderIndex--;
+    displaySlider(sliderIndex, currentPhotographerMedias);
+  } else {
+    sliderIndex = currentPhotographerMedias.length - 1;
+    displaySlider(sliderIndex, currentPhotographerMedias);
+  }
+}
+
+function nextImg() {
+  if (sliderIndex < currentPhotographerMedias.length - 1) {
+    sliderIndex++;
+    displaySlider(sliderIndex, currentPhotographerMedias);
+  } else {
+    sliderIndex = 0;
+    displaySlider(sliderIndex, currentPhotographerMedias);
+  }
 }
 
 getPhotographerData();

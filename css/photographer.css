@@ -348,8 +348,8 @@ form textarea {
 
 .mediaTitle {
     position: absolute;
-    bottom: -45px;
-    left: 20px;
+    bottom: -10px;
+    left: 40px;
     color: #901C1C;
     font-size: 2rem;
 }
