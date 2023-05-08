@@ -113,11 +113,24 @@ function displaySlider(mediaIndex, medias) {
   container.setAttribute("aria-hidden", "false");
   const photograph = document.querySelector("#photographer-main");
   photograph.style.display = "none";
-  document.querySelector(".carrousel-media").innerHTML = `
-  <div class="media" >
-  <img src="assets/photos/${medias[mediaIndex].image}" alt="${medias[mediaIndex].title}" class="mediaElement" aria-label="image de ${medias[mediaIndex].title}">
-  </div>
-  `;
+  // document.querySelector(".carrousel-media").innerHTML = `
+  // <div class="media" >
+  // <img src="assets/photos/${medias[mediaIndex].image}" alt="${medias[mediaIndex].title}" class="mediaElement" aria-label="image de ${medias[mediaIndex].title}">
+  // </div>
+  // `;
+  { medias[mediaIndex].image ?
+    (document.querySelector(".carrousel-media").innerHTML = `
+    <div class="media" >
+    <img src="assets/photos/${medias[mediaIndex].image}" alt="${medias[mediaIndex].title}" class="mediaElement" aria-label="image de ${medias[mediaIndex].title}">
+    </div>
+    ` ): (
+    document.querySelector(".carrousel-media").innerHTML = `
+    <div class="media" >
+    <video src="assets/videos/${medias[mediaIndex].video}" alt="${medias[mediaIndex].title}" class="mediaElement" aria-label="video de ${medias[mediaIndex].title}" controls="true"></video>
+    </div>
+    `)
+  
+  }
 }
 
 function closeSlider() {

@@ -293,6 +293,7 @@ form textarea {
     margin: 50px auto;
     scroll-behavior: smooth;
     background-color: white;
+    z-index: 2;
 }
 
 .carrousel-media-icon  {
@@ -303,7 +304,7 @@ form textarea {
     color: #901C1C;
     width: 100%;
     z-index: 1; 
-    height: 80vh; 
+    height: 60vh; 
     display: flex;
     justify-content: space-between;
     flex-direction: row;
