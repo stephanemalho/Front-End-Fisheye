@@ -19,6 +19,7 @@ async function getPhotographerData() {
   showPhotographerHeader(photographer[0]);
   showPhotographerMedias(medias);
   getUserNameToForm(photographer[0]);
+  sortMedia(medias);
 }
 
 function showPhotographerHeader(photographerProfile) {
@@ -66,19 +67,19 @@ function showPhotographerMedias(profileMedias) {
     {
       profileMedia.image
         ? (mediaContainerHTML += `
-      <div class="cards" tabindex="0" onclick="displayLightbox(${index})">
+      <div id=${profileMedia.id} class="cards" tabindex="0" onclick="displayLightbox(${index})">
       <div class="descriptionBox">
       <h2>${profileMedia.title}</h2>
-      <button class="likes"><p>${profileMedia.likes}</p><i class="fas fa-heart" aria-hidden="true"></i></button>
+      <button class="likes" onclick="handleLike(event)"><p>${profileMedia.likes}</p><i class="fas fa-heart" aria-hidden="true"></i></button>
       </div>
       <img src="assets/photos/${profileMedia.image}" alt="${profileMedia.title}"></div>
       `)
         : profileMedia.video
         ? (mediaContainerHTML += `
-      <div class="cards" tabindex="0" onclick="displayLightbox(${index})">
+      <div id=${profileMedia.id} class="cards" tabindex="0" onclick="displayLightbox(${index})">
       <div class="descriptionBox">
       <h2>${profileMedia.title}</h2>
-      <button class="likes"><p>${profileMedia.likes}</p><i class="fas fa-heart" aria-hidden="true"></i></button>
+      <button class="likes" onclick="handleLike(event)"><p>${profileMedia.likes}</p><i class="fas fa-heart" aria-hidden="true"></i></button>
       </div>
       <video src="assets/videos/${profileMedia.video}" alt="${profileMedia.title}" controls="true"></video></div>
       `)
@@ -87,6 +88,48 @@ function showPhotographerMedias(profileMedias) {
   });
   const mediaContainer = document.querySelector(".photograph-medias");
   mediaContainer.innerHTML = mediaContainerHTML;
+}
+
+
+function handleLike(event) {
+  event.stopPropagation();
+  const likeButton = event.currentTarget;
+  const mediaId = likeButton.parentNode.parentNode.id;
+
+  const like = likeButton.querySelector("p");
+  const likesNumber = parseInt(like.textContent);
+
+  const media = currentPhotographerMedias;
+
+  media.forEach((media) => {
+    if (media.id == mediaId) {
+      console.log(media.id);
+      console.log(mediaId);
+      if (like.classList.contains("liked")) {
+        likeButton.setAttribute("aria-label", "annuler le like");
+        like.classList.remove("liked");
+        { media.likes = likesNumber - 1;}
+        likeButton.innerHTML = `
+        <p>${likesNumber - 1}</p>
+        <i class="fas fa-heart "></i>
+        `;
+      } else {
+        likeButton.setAttribute("aria-label", "ajouter un like");
+        { media.likes = likesNumber + 1;}
+        likeButton.innerHTML = `
+        <p class="liked">${likesNumber + 1}</p>
+        <i class="fas fa-heart red"></i>
+        `;
+        }
+
+      console.log("likes " + media.likes);
+      const likes = document.querySelector(".banner span");
+      likes.innerHTML = `
+      <i class="fas fa-heart" aria-label=" nombres de likes"></i>
+      ${getLikes(media.photographerId)}
+          `;
+    }
+  });
 }
 
 function getLikes(photographerId) {
@@ -113,23 +156,18 @@ function displaySlider(mediaIndex, medias) {
   container.setAttribute("aria-hidden", "false");
   const photograph = document.querySelector("#photographer-main");
   photograph.style.display = "none";
-  // document.querySelector(".carrousel-media").innerHTML = `
-  // <div class="media" >
-  // <img src="assets/photos/${medias[mediaIndex].image}" alt="${medias[mediaIndex].title}" class="mediaElement" aria-label="image de ${medias[mediaIndex].title}">
-  // </div>
-  // `;
-  { medias[mediaIndex].image ?
-    (document.querySelector(".carrousel-media").innerHTML = `
+  {
+    medias[mediaIndex].image
+      ? (document.querySelector(".carrousel-media").innerHTML = `
     <div class="media" >
     <img src="assets/photos/${medias[mediaIndex].image}" alt="${medias[mediaIndex].title}" class="mediaElement" aria-label="image de ${medias[mediaIndex].title}">
     </div>
-    ` ): (
-    document.querySelector(".carrousel-media").innerHTML = `
+    `)
+      : (document.querySelector(".carrousel-media").innerHTML = `
     <div class="media" >
     <video src="assets/videos/${medias[mediaIndex].video}" alt="${medias[mediaIndex].title}" class="mediaElement" aria-label="video de ${medias[mediaIndex].title}" controls="true"></video>
     </div>
-    `)
-  
+    `);
   }
 }
 
@@ -139,6 +177,36 @@ function closeSlider() {
   container.setAttribute("aria-hidden", "true");
   const photograph = document.querySelector("#photographer-main");
   photograph.style.display = "block";
+}
+
+// function sortMedia on click on select box
+function sortMedia() {
+  const mediaList = document.querySelector(".photograph-medias");
+  const sortSelect = document.getElementById("sortMedias");
+  sortSelect.setAttribute("aria-label", "Trier les médias");
+
+  sortSelect.addEventListener("change", (event) => {
+    const value = event.target.value;
+    switch (value) {
+      case "populaire":
+        mediaList.innerHTML = "";
+        media.sort((a, b) => b.likes - a.likes);
+        break;
+      case "date":
+        mediaList.innerHTML = "";
+        media.sort((a, b) => new Date(b.date) - new Date(a.date));
+        break;
+      case "titre":
+        mediaList.innerHTML = "";
+        media.sort((a, b) => a.title.localeCompare(b.title));
+        break;
+      default:
+        mediaList.innerHTML = "";
+        media.sort((a, b) => b.likes - a.likes);
+        break;
+    }
+    showPhotographerMedias(media);
+  });
 }
 
 getPhotographerData();
