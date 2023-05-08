@@ -63,14 +63,27 @@ function getUserNameToForm(photographer) {
 function showPhotographerMedias(profileMedias) {
   let mediaContainerHTML = "";
   profileMedias.forEach((profileMedia, index) => {
-    mediaContainerHTML += `
-    <div class="cards" tabindex="0" onclick="displayLightbox(${index})">
-    <div class="descriptionBox">
-    <h2>${profileMedia.title}</h2>
-    <button class="likes"><p>${profileMedia.likes}</p><i class="fas fa-heart" aria-hidden="true"></i></button>
-    </div>
-    <img src="assets/photos/${profileMedia.image}" alt="${profileMedia.title}"></div>
-    `;
+    {
+      profileMedia.image
+        ? (mediaContainerHTML += `
+      <div class="cards" tabindex="0" onclick="displayLightbox(${index})">
+      <div class="descriptionBox">
+      <h2>${profileMedia.title}</h2>
+      <button class="likes"><p>${profileMedia.likes}</p><i class="fas fa-heart" aria-hidden="true"></i></button>
+      </div>
+      <img src="assets/photos/${profileMedia.image}" alt="${profileMedia.title}"></div>
+      `)
+        : profileMedia.video
+        ? (mediaContainerHTML += `
+      <div class="cards" tabindex="0" onclick="displayLightbox(${index})">
+      <div class="descriptionBox">
+      <h2>${profileMedia.title}</h2>
+      <button class="likes"><p>${profileMedia.likes}</p><i class="fas fa-heart" aria-hidden="true"></i></button>
+      </div>
+      <video src="assets/videos/${profileMedia.video}" alt="${profileMedia.title}" controls="true"></video></div>
+      `)
+        : null;
+    }
   });
   const mediaContainer = document.querySelector(".photograph-medias");
   mediaContainer.innerHTML = mediaContainerHTML;
@@ -116,4 +129,3 @@ function closeSlider() {
 }
 
 getPhotographerData();
-
