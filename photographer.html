@@ -17,35 +17,59 @@
           src="assets/images/logo.png"
           class="logo"
           alt="Symbole de fisheye"
-          aria-label="Cette image contient le nom fisheye, cliquer dessus pour revenir à la page d'accueil"
+          aria-label="logo fisheye"
       /></a>
     </header>
     <main id="photographer-main">
       <article class="photograph-header"></article>
-      <article class="photograph-media">
-        <h1 class="filter-list">
-          Trié par
-          <select>
-            <option value="popularite">Popularité</option>
-            <option value="date">Date</option>
-            <option value="titre">Titre</option>
-          </select>
-        </h1>
+      <div class="filter-container">
+        Trié par
+        <button tabindex="0" onclick="showMediaFilter()" id="sortMedias">Popularité <i class="fa fa-chevron-down chevron-ml" aria-hidden="false" aria-label="filtrer les médias"></i></button>
+        
+        <ul class="list-box" onclick="sortMedia()" aria-hidden="true" id="openMediaList">
+          <li value="populaire">Popularité<span><i class="fa fa-chevron-up chevron-ml" onclick="hiddeMediaFilter()" aria-label="fermer le filtre" tabindex="0"></i></span></li>
+          <li value="date">Date</li>
+          <li value="titre">Titre</li>
+        </ul>
+      </div>
+      <article class="photograph-medias">
+
       </article>
     </main>
     <main id="carrousel" aria-hidden="true">
-      <button onclick="closeSliderModal()" class="close-button" aria-label="fermer le groupe images">X</button>
-        <div class="carrousel-media">
-
-            <!-- add images here-->       
-        </div>
-        <div class="carrousel-media-icon">
-              <button onclick="previousImg()" aria-label="Cliquer pour défiler vers la gauche" class="left"><i  class="fas fa-chevron-left" ></i></button>
-              <button onclick="nextImg()" aria-label="Cliquer pour défiler vers la droite" class="right"><i class="fas fa-chevron-right"></i></button>
-        </div>
+      <button
+        onclick="closeSlider()"
+        class="close-button"
+        aria-label="fermer le groupe images"
+      >
+        X
+      </button>
+      <div class="carrousel-media">
+        <!-- add images here-->
+      </div>
+      <div class="carrousel-media-icon">
+        <button
+          aria-label="Cliquer pour défiler vers la gauche"
+          class="left"
+        >
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button
+          aria-label="Cliquer pour défiler vers la droite"
+          class="right"
+        >
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
     </main>
     <div id="contact_modal">
-      <div class="modal" id="modal" tabindex="0" role="dialog" aria-hidden="true">
+      <div
+        class="modal"
+        id="modal"
+        tabindex="0"
+        role="dialog"
+        aria-hidden="true"
+      >
         <header class="contact_header">
           <!-- add dynamic user name -->
         </header>

@@ -21,8 +21,9 @@ function displayModal() {
     // cacher la bannière fixe
     hiddeBanner();
 
+    const newLocal = "keydown";
     // ajouter gestionnaire d'événements pour la navigation au clavier
-    modal.addEventListener("keydown", function (event) {
+    modal.addEventListener(newLocal, function (event) {
       if (event.key === "Tab") {
         event.preventDefault();
         // récupérer tous les éléments focusables dans la modal
@@ -75,7 +76,7 @@ function hiddeBanner() {
     banner.style.display = "none";
   } else {
     const banner = document.querySelector(".banner");
-    banner.style.display = "block";
+    banner.style.display = "flex";
   }
 }
 
@@ -93,7 +94,7 @@ form.addEventListener("submit", (e) => {
       message: document.querySelector("#message").value,
     };
     console.log(userObject);
-    closeModal();
+    closeModal();  
   } catch (error) {
     console.log(error);
   }

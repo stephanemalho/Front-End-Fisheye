@@ -23,7 +23,6 @@ header > div {
 
 h1 {
   color: #901c1c;
-  margin-right: 100px;
 }
 
 .logo {
@@ -35,6 +34,8 @@ h1 {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 40px;
+  max-width: 1500px;
+  margin: auto;
 }
 .photographer_section div {
   display: flex;
