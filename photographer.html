@@ -17,19 +17,21 @@
           src="assets/images/logo.png"
           class="logo"
           alt="Symbole de fisheye"
-          aria-label="Cette image contient le nom fisheye, cliquer dessus pour revenir à la page d'accueil"
+          aria-label="logo fisheye"
       /></a>
     </header>
     <main id="photographer-main">
       <article class="photograph-header"></article>
-      <h1 class="filter-list" id="addSelect">
+      <div class="filter-container">
         Trié par
-        <select id="sortMedias">
-          <option class="open" value="populaire">Popularité</option>
-          <option value="date">Date</option>
-          <option value="titre">Titre</option>
-        </select>
-      </h1>
+        <button tabindex="0" onclick="showMediaFilter()" id="sortMedias">Popularité <i class="fa fa-chevron-down chevron-ml" aria-hidden="false" aria-label="filtrer les médias"></i></button>
+        
+        <ul class="list-box" onclick="sortMedia()" aria-hidden="true" id="openMediaList">
+          <li value="populaire">Popularité<span><i class="fa fa-chevron-up chevron-ml" onclick="hiddeMediaFilter()" aria-label="fermer le filtre" tabindex="0"></i></span></li>
+          <li value="date">Date</li>
+          <li value="titre">Titre</li>
+        </ul>
+      </div>
       <article class="photograph-medias">
 
       </article>
@@ -47,14 +49,12 @@
       </div>
       <div class="carrousel-media-icon">
         <button
-          onclick="previousImg()"
           aria-label="Cliquer pour défiler vers la gauche"
           class="left"
         >
           <i class="fas fa-chevron-left"></i>
         </button>
         <button
-          onclick="nextImg()"
           aria-label="Cliquer pour défiler vers la droite"
           class="right"
         >

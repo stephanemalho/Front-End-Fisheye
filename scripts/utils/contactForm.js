@@ -21,8 +21,9 @@ function displayModal() {
     // cacher la bannière fixe
     hiddeBanner();
 
+    const newLocal = "keydown";
     // ajouter gestionnaire d'événements pour la navigation au clavier
-    modal.addEventListener("keydown", function (event) {
+    modal.addEventListener(newLocal, function (event) {
       if (event.key === "Tab") {
         event.preventDefault();
         // récupérer tous les éléments focusables dans la modal
