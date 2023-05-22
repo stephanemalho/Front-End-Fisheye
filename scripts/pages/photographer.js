@@ -5,13 +5,13 @@ async function getPhotographerData() {
   const url = new URL(window.location.href);
   const id = url.searchParams.get("id");
 
-  const response = await fetch("../data/photographers.json");
+  const response = await fetch("./../data/photographers.json");
   const data = await response.json();
   const photographer = data.photographers.filter(
     (photographer) => photographer.id == id
   );
 
-  const responseMedia = await fetch("../data/photographers.json");
+  const responseMedia = await fetch("./../data/photographers.json");
   const dataMedia = await responseMedia.json();
   const medias = dataMedia.media.filter((media) => media.photographerId == id);
 
