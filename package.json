@@ -5,5 +5,8 @@
   },
   "scripts": {
     "lint": "eslint ."
+  },
+  "dependencies": {
+    "vercel": "^29.3.6"
   }
 }

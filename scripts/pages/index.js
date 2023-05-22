@@ -1,7 +1,7 @@
 async function getPhotographers() {
   let photographers = []; // On crée un tableau vide pour les photographes
 
-  const response = await fetch("./photographers.json"); // On récupère le fichier JSON
+  const response = await fetch("./data/photographers.json"); // On récupère le fichier JSON
 
   photographers = await response.json(); // On récupère le contenu du fichier JSON
 
