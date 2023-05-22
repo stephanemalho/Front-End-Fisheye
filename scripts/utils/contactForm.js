@@ -81,22 +81,26 @@ function hiddeBanner() {
 }
 
 // recupérer la valeur entrée dans chaque input du formulaire et faire un console.log au moment du submit
-const form = document.querySelector("form");
+sendFormValue();
 
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
+function sendFormValue() {
+  const form = document.querySelector("form");
 
-  try {
-    const userObject = {
-      prenom: document.querySelector("#prenom").value,
-      nom: document.querySelector("#nom").value,
-      email: document.querySelector("#email").value,
-      message: document.querySelector("#message").value,
-    };
-    console.log(userObject);
-    closeModal();  
-  } catch (error) {
-    console.log(error);
-  }
-});
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    try {
+      const userObject = {
+        prenom: document.querySelector("#prenom").value,
+        nom: document.querySelector("#nom").value,
+        email: document.querySelector("#email").value,
+        message: document.querySelector("#message").value,
+      };
+      console.log(userObject);
+      closeModal();
+    } catch (error) {
+      console.log(error);
+    }
+  });
+}
 

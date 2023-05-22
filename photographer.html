@@ -1,39 +1,40 @@
 <!DOCTYPE html>
 <html lang="fr">
   <head>
-    <link href="css/style.css" rel="stylesheet" type="text/css" />
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href="assets/icons/favicon.png" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" >
+    <meta charset="utf-8" >
+    <link rel="icon" type="image/png" href="assets/icons/favicon.png" >
     <link
       href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap"
       rel="stylesheet"
-    />
+    >
     <title>Fisheye - photographe</title>
   </head>
   <body>
     <header>
-      <a href="./index.html" title="retour à la page d'accueil" tabindex="1"
+      <a href="./index.html" title="retour à la page d'accueil" tabindex="0"
         ><img
           src="assets/images/logo.png"
           class="logo"
           alt="Symbole de fisheye"
           aria-label="logo fisheye"
-      /></a>
+      ></a>
     </header>
     <main id="photographer-main">
-      <article class="photograph-header"></article>
+      <article class="photograph-header">
+        <!-- add photographer here-->
+      </article>
       <div class="filter-container">
-        Trié par
+        <h1 class="sort-header">Trié par</h1>
         <button tabindex="0" onclick="showMediaFilter()" id="sortMedias">Popularité <i class="fa fa-chevron-down chevron-ml" aria-hidden="false" aria-label="filtrer les médias"></i></button>
-        
         <ul class="list-box" onclick="sortMedia()" aria-hidden="true" id="openMediaList">
-          <li value="populaire">Popularité<span><i class="fa fa-chevron-up chevron-ml" onclick="hiddeMediaFilter()" aria-label="fermer le filtre" tabindex="0"></i></span></li>
+          <li value="populaire">Popularité<span><i class="fa fa-chevron-up chevron-ml" onclick="hiddeMediaFilter()" aria-label="fermer le filtre" tabindex="0" role="button"></i></span></li>
           <li value="date">Date</li>
           <li value="titre">Titre</li>
         </ul>
       </div>
       <article class="photograph-medias">
-
+        <!-- add medias here-->
       </article>
     </main>
     <main id="carrousel" aria-hidden="true">
@@ -77,7 +78,6 @@
           <div>
             <label for="prenom">Prénom</label>
             <input
-              aria-describedby="champs pour le prenom"
               placeholder="entrer son prénom"
               aria-labelledby="prenom"
               name="prenom"
@@ -87,7 +87,6 @@
             />
             <label for="nom">Nom</label>
             <input
-              aria-describedby="champs pour le nom"
               aria-labelledby="nom"
               placeholder="entrer son nom"
               type="text"
@@ -97,7 +96,6 @@
             />
             <label for="email">Email</label>
             <input
-              aria-describedby="champs pour l'email"
               placeholder="entrer son Email"
               aria-labelledby="email"
               name="email"
@@ -107,7 +105,6 @@
             />
             <label for="message">Message</label>
             <textarea
-              aria-describedby="champs pour le message (optionel)"
               placeholder="entrer son message"
               aria-labelledby="message"
               name="message"

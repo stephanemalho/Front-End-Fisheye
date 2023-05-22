@@ -38,10 +38,10 @@ function showPhotographerHeader(photographerProfile) {
     photographerProfile.tabindex
   } >Contactez-moi</button>
   <div class="photograph-info">
-    <h1 tabindex=${photographerProfile.tabindex + 1}>${
+    <h1 tabindex=${photographerProfile.tabindex}>${
     photographerProfile.name
   }</h1>
-    <div tabindex=${photographerProfile.tabindex + 1}> 
+    <div tabindex=${photographerProfile.tabindex}> 
     <h2>${photographerProfile.city}, ${photographerProfile.country}</h2>
     <p>${photographerProfile.tagline}</p>
     </div>
@@ -77,10 +77,8 @@ function hiddeMediaFilter() {
   listItems.forEach(function (item) {
     item.removeAttribute("aria-label");
   });
-
   // Définir aria-hidden sur true pour l'élément <ul>
   showList.setAttribute("aria-hidden", "true");
-
   // Changer display:none à display:flex
   showList.style.display = "none";
 }
@@ -195,12 +193,8 @@ function displaySlider(mediaIndex, medias) {
   const photograph = document.querySelector("#photographer-main");
   photograph.style.display = "none";
 
-  //let currentIndex = mediaIndex;
-
-  console.log("index égale " + mediaIndex);
-const currentMedia = medias[mediaIndex];
-  console.log("currentMedia", currentMedia);
-const mediaElement = currentMedia.image ?? currentMedia.video;
+  const currentMedia = medias[mediaIndex];
+  const mediaElement = currentMedia.image ?? currentMedia.video;
 
 if (mediaElement) {
   const mediaType = currentMedia.image ? "img" : "video";
@@ -256,17 +250,28 @@ function sortMedia() {
     e.stopPropagation();
     hiddeMediaFilter();
   });
-  var listItems = document.querySelectorAll(".list-box li");
+
+  const listItems = document.querySelectorAll(".list-box li");
+  const span = document.querySelector(".list-box li:first-child span");
+
   listItems.forEach(function (item, index) {
     item.setAttribute("tabindex", "0"); // Ajout de l'attribut "tabindex" pour chaque élément de la liste
     item.setAttribute("role", "option"); // Ajout du rôle "option" pour chaque élément de la liste
 
     // Gestion de la navigation en boucle avec la touche Tab
     item.addEventListener("keydown", function (event) {
-      if (event.key === "Tab") {
-        event.preventDefault();
-        const nextIndex = (index + 1) % listItems.length;
-        listItems[nextIndex].focus();
+      if (event.key === "Tab" && !event.shiftKey) {
+        if (this === listItems[listItems.length - 1]) {
+          // Tab depuis la dernière li, définir le focus sur la span
+          event.preventDefault();
+          span.focus();
+        }
+      } else if (event.key === "Tab" && event.shiftKey) {
+        if (this === listItems[0] && document.activeElement === span) {
+          // Shift + Tab depuis la span, définir le focus sur la dernière li
+          event.preventDefault();
+          listItems[listItems.length - 1].focus();
+        }
       } else if (event.key === "Enter") {
         event.preventDefault();
         var selectedValue = this.getAttribute("value");
