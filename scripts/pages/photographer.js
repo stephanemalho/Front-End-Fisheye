@@ -30,9 +30,9 @@ function showPhotographerHeader(photographerProfile) {
   <figcaption tabindex=${photographerProfile.tabindex}>
     <img src="assets/photographers/${
       photographerProfile.portrait
-    }" alt="portrait de ${photographerProfile.name} aria-label="profil de  ${
+    }" alt="portrait de ${photographerProfile.name}" aria-label="profil de ${
     photographerProfile.name
-  }" " >
+  }" >
   </figcaption>
   <button class="contact_button" onclick="displayModal()" tabindex=${
     photographerProfile.tabindex
